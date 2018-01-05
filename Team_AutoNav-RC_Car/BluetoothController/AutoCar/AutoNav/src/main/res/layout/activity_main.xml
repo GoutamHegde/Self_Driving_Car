@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.sucharitha.AutoNav.MainActivity">
+
+    <Button
+        android:text="@string/enbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginBottom="39dp"
+        android:id="@+id/EnableBT"
+        android:clickable="true"
+        android:onClick="btenable" />
+
+    <Button
+        android:text="DisableBT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/EnableBT"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="66dp"
+        android:layout_marginEnd="66dp"
+        android:id="@+id/DisableBT"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:clickable="true"
+        android:onClick="btoff" />
+
+    <Button
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/EnableBT"
+        android:layout_alignLeft="@+id/EnableBT"
+        android:layout_alignStart="@+id/EnableBT"
+        android:layout_marginBottom="57dp"
+        android:clickable="true"
+        android:id="@+id/Start"
+        android:onClick="startSend" />
+
+    <Button
+        android:text="Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/Stop"
+        android:onClick="stopSend"
+        android:layout_alignBaseline="@+id/Start"
+        android:layout_alignBottom="@+id/Start"
+        android:layout_alignLeft="@+id/DisableBT"
+        android:layout_alignStart="@+id/DisableBT" />
+
+    <TextView
+        android:text="Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Stop"
+        android:layout_marginBottom="92dp"
+        android:id="@+id/Status"
+        android:layout_toLeftOf="@+id/Stop"
+        android:layout_toEndOf="@+id/Start" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Status"
+        android:layout_toRightOf="@+id/EnableBT"
+        android:layout_toEndOf="@+id/EnableBT"
+        android:layout_marginBottom="28dp"
+        android:id="@+id/statusProgressBar"
+        android:progress="0"
+        android:max="1"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:indeterminate="false"
+        android:background="@android:color/holo_green_dark"
+        android:scrollbarSize="30dp" />
+
+</RelativeLayout>

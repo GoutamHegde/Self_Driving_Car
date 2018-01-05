@@ -1,0 +1,19 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=0E:D8:D4:B6:D8:9A:DE:8B:E2:D8:1F:23:9C:05:C6:43:E6:79:99:64%3Bcom.autocar.autonav.autonav
+
+    You can also add your credentials to an existing key, using this line:
+    0E:D8:D4:B6:D8:9A:DE:8B:E2:D8:1F:23:9C:05:C6:43:E6:79:99:64;com.autocar.autonav.autonav
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC9N0d2AqXvTM4rvnFMvEKaOjvQr2i8fNc</string>
+</resources>

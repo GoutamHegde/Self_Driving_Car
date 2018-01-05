@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ActualApp</string>
+    <string name="enbt">EnableBT</string>
+    <string name="blueoff">TurnOffBT</string>
+    <string name="senddata">Send</string>
+    <string name="receivedata">Receive</string>
+</resources>

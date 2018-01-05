@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.sucharitha.actualapp.MainActivity">
+
+    <Button
+        android:text="@string/enbt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginBottom="39dp"
+        android:id="@+id/EnableBT"
+        android:clickable="true"
+        android:onClick="btenable" />
+
+    <Button
+        android:text="@string/blueoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/EnableBT"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="66dp"
+        android:layout_marginEnd="66dp"
+        android:id="@+id/TurnOffBT"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:clickable="true"
+        android:onClick="btoff" />
+
+    <Button
+        android:text="@string/senddata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/EnableBT"
+        android:layout_alignLeft="@+id/EnableBT"
+        android:layout_alignStart="@+id/EnableBT"
+        android:layout_marginBottom="57dp"
+        android:clickable="true"
+        android:id="@+id/Send"
+        android:onClick="send" />
+
+ <!--   <Button
+        android:text="@string/receivedata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Receive"
+        android:layout_alignBaseline="@+id/Send"
+        android:layout_alignBottom="@+id/Send"
+        android:layout_alignLeft="@+id/TurnOffBT"
+        android:layout_alignStart="@+id/TurnOffBT"
+        android:clickable="true"
+        android:onClick="receive" />
+        -->
+</RelativeLayout>

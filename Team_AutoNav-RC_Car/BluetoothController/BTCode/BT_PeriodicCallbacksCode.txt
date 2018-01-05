@@ -1,0 +1,123 @@
+#include <stdint.h>
+#include "io.hpp"
+#include "periodic_callback.h"
+#include "uart3.hpp"
+#include "string.h"
+#include "can.h"
+#include "_can_dbc/generated_can.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+/// This is the stack size used for each of the period tasks (1Hz, 10Hz, 100Hz, and 1000Hz)
+const uint32_t PERIOD_TASKS_STACK_SIZE_BYTES = (512 * 4);
+const uint32_t PERIOD_DISPATCHER_TASK_STACK_SIZE_BYTES = (512 * 3);
+
+can_msg_t can_send;
+can_msg_t can_receive;
+
+const uint32_t                        SENSOR_SYNC__MIA_MS=3000;//change it later
+const SENSOR_SYNC_t                  SENSOR_SYNC__MIA_MSG={0}; // change it later
+
+const uint32_t                       DRIVER_SYNC_ACK__MIA_MS=3000;//change it later
+const DRIVER_SYNC_ACK_t              DRIVER_SYNC_ACK__MIA_MSG={0};//change it later
+
+const uint32_t                       SENSOR_SONAR__MIA_MS=3000;//change it later
+const SENSOR_SONAR_t                 SENSOR_SONAR__MIA_MSG={0};//change it later
+
+const uint32_t                       SENSOR_BATTERY__MIA_MS=3000;//change it later
+const SENSOR_BATTERY_t               SENSOR_BATTERY__MIA_MSG={0};//change it later
+
+SENSOR_SYNC_t sensor_receiver;
+DRIVER_SYNC_ACK_t driver_sync_bluetooth;
+SENSOR_SONAR_t sonar_bluetooth;
+SENSOR_BATTERY_t battery_sensor_bluetooth;
+
+Uart3 &u3 = Uart3::getInstance();
+START_CMD_t Send = { 0 };
+
+/// Called once before the RTOS is started, this is a good place to initialize things once
+bool period_init(void)
+{
+
+    CAN_init(can1, 100, 10, 10, 0, 0);
+    CAN_bypass_filter_accept_all_msgs();
+    CAN_reset_bus(can1);
+    return true; // Must return true upon success
+}
+
+/// Register any telemetry variables
+bool period_reg_tlm(void)
+{
+    // Make sure "SYS_CFG_ENABLE_TLM" is enabled at sys_config.h to use Telemetry
+    return true; // Must return true upon success
+}
+
+
+/**
+ * Below are your periodic functions.
+ * The argument 'count' is the number of times each periodic task is called.
+ */
+
+bool dbc_app_send_can_msg(uint32_t mid, uint8_t dlc, uint8_t bytes[8])
+{
+    can_send.msg_id = mid;
+    can_send.frame_fields.is_29bit = 0;
+    can_send.frame_fields.data_len = dlc;
+    memcpy(can_send.data.bytes, bytes, dlc);
+    if(CAN_tx(can1,&can_send,0))
+    {
+         printf("CAN send\n");
+    }
+    return true;
+}
+
+void period_1Hz(uint32_t count)
+{
+    if(CAN_is_bus_off(can1))
+     {
+         CAN_reset_bus(can1);
+     }
+//    LE.toggle(1);
+}
+
+void period_10Hz(uint32_t count)
+{
+
+    u3.init(9600,100,100);
+    char rec='c';
+    static char send='A';
+    if(u3.getChar(&rec,0))
+    {
+    	if(rec!='0' && rec!='1')
+    	{
+    		send=(char)('c');
+    		u3.putChar(send,10);
+    		Send.BLUETOOTH_START_CMD_signal=0;
+    	}
+    	else{
+    		send=(char)(rec);
+    		u3.putChar(send,10);
+    		Send.BLUETOOTH_START_CMD_signal=rec-'0';
+    	}
+
+        //printf("%d\n",Send.BLUETOOTH_START_CMD_signal);
+    	printf("Sending %c to Bluetooth\n",send);
+        dbc_encode_and_send_START_CMD(&Send);
+    }
+    else{
+    	//send='E';
+    	u3.putChar(send,10);
+    	printf("Sending %c to Bluetooth\n",send);
+    	printf("Error : %d\n",Send.BLUETOOTH_START_CMD_signal);
+
+    }
+
+}
+void period_1000Hz(uint32_t count)
+{
+    //LE.toggle(4);
+}
+void period_100Hz(uint32_t count)
+{
+    //LE.toggle(3);
+}

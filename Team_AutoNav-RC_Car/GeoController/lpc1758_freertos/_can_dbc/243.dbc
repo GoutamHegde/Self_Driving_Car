@@ -1,0 +1,126 @@
+VERSION ""
+
+NS_ :
+	BA_
+	BA_DEF_
+	BA_DEF_DEF_
+	BA_DEF_DEF_REL_
+	BA_DEF_REL_
+	BA_DEF_SGTYPE_
+	BA_REL_
+	BA_SGTYPE_
+	BO_TX_BU_
+	BU_BO_REL_
+	BU_EV_REL_
+	BU_SG_REL_
+	CAT_
+	CAT_DEF_
+	CM_
+	ENVVAR_DATA_
+	EV_DATA_
+	FILTER
+	NS_DESC_
+	SGTYPE_
+	SGTYPE_VAL_
+	SG_MUL_VAL_
+	SIGTYPE_VALTYPE_
+	SIG_GROUP_
+	SIG_TYPE_REF_
+	SIG_VALTYPE_
+	VAL_
+	VAL_TABLE_
+
+BS_: 
+
+BU_: DRIVER BLUETOOTH SENSOR MOTOR GEO
+
+BO_ 100 KILL_SWITCH: 1 DRIVER
+ SG_ killSwitch : 0|1@1+ (1,0) [0|0] "Stop=1" MOTOR
+
+BO_ 110 STOP_CMD: 1 BLUETOOTH
+ SG_ BLUETOOTH_STOP_CMD_signal : 0|1@1+ (1,0) [0|0] "Stop=1" DRIVER
+
+BO_ 120 MOTOR_SYNC: 1 MOTOR
+ SG_ Motor_Sync : 0|1@1+ (1,0) [0|0] "MotorSync=1" DRIVER
+
+BO_ 130 GEO_SYNC: 1 GEO
+ SG_ Geo_sync_cmd : 0|1@1+ (1,0) [0|0] "GeoSync=1" DRIVER
+  
+BO_ 140 BLUETOOTH_SYNC_CMD: 1 BLUETOOTH
+ SG_ BLUETOOTH_SYNC_CMD_signal : 0|1@1+ (1,0) [0|0] "BluetoothSync=1" DRIVER
+  
+BO_ 150 SENSOR_SYNC: 1 SENSOR
+ SG_ Sensor_Sync : 0|1@1+ (1,0) [0|0] "SensorSync=1" DRIVER,MOTOR,BLUETOOTH
+ 
+BO_ 160 ERROR_COMM_DRIVER: 1 DRIVER
+ SG_ Sync_Miss_Info : 0|8@1+ (1,0) [0|0] "ErrorMsgType" MOTOR
+ 
+BO_ 170 DRIVER_SYNC_ACK: 1 DRIVER
+ SG_ Sync_Miss_Info : 0|1@1+ (1,0) [0|0] "DriverSync=1" MOTOR,BLUETOOTH,SENSOR,GEO
+ 
+BO_ 180 MOTOR_CONTROL: 2 DRIVER
+ SG_ steer : 0|8@1+ (1,0) [0|0] "DirectionType" MOTOR    
+ SG_ speed : 8|8@1+ (1,0) [0|0] "SpeedType" MOTOR  
+  
+BO_ 190 SENSOR_SONAR: 5 SENSOR
+ SG_ Sensor_Sonar_Front : 0|8@1+ (1,0) [0|0] "FrontDistance" DRIVER,MOTOR,BLUETOOTH
+ SG_ Sensor_Sonar_FrontRight : 8|8@1+ (1,0) [0|0] "FRightDistance" DRIVER,MOTOR,BLUETOOTH
+ SG_ Sensor_Sonar_FrontLeft : 16|8@1+ (1,0) [0|0] "FLeftDistance" DRIVER,MOTOR,BLUETOOTH
+ SG_ Sensor_Sonar_Back : 24|8@1+ (1,0) [0|0] "BackDistance" DRIVER,MOTOR,BLUETOOTH
+ 
+BO_ 200 GEO_SEND_LOCATION: 8 GEO
+ SG_ Geo_latitude : 0|27@1+ (0.000001,0) [0|0] "latitude" DRIVER,BLUETOOTH
+ SG_ Geo_longitude : 27|27@1+ (0.000001,0) [0|0] "longitude" DRIVER,BLUETOOTH
+
+BO_ 210 GEO_SEND_HD_BR: 5 GEO
+ SG_ Geo_speed : 0|8@1+ (1,0) [0|0] "" DRIVER,MOTOR
+ SG_ Geo_heading : 8|16@1+ (1,0) [0|0] "" DRIVER,MOTOR
+ SG_ Geo_bearing : 24|16@1+ (1,0) [0|0] "" DRIVER,MOTOR
+
+BO_ 220 NAVIGATION_WAYPOINT: 8 BLUETOOTH
+ SG_ Bluetooth_CurrWaypoint : 0|5@1+ (1,0) [0|0] "CurrentWaypointNumber" DRIVER
+ SG_ Bluetooth_NumWaypoint : 5|5@1+ (1,0) [0|0] "NumberOfWaypoints" DRIVER
+ SG_ Bluetooth_latitude : 10|27@1+ (0.000001,0) [0|0] "latitude" DRIVER
+ SG_ Bluetooth_longitude : 37|27@1+ (0.000001,0) [0|0] "longitude" DRIVER
+
+BO_ 230 START_CMD: 1 BLUETOOTH
+ SG_ BLUETOOTH_START_CMD_signal : 0|8@1+ (1,0) [0|0] "" DRIVER
+ 
+BO_ 240 SENSOR_BATTERY: 8 SENSOR 
+ SG_ Sensor_Battery_Voltage : 0|8@1+ (0.1,0) [0|0] "Volts" DRIVER,MOTOR,BLUETOOTH
+ SG_ Sensor_Battery_SOC : 8|10@1+ (0.1,0) [0|0] "Percent" DRIVER,MOTOR,BLUETOOTH
+ SG_ Sensor_Light : 18|10@1+ (0.1,0) [0|0] "LightPercentValue" DRIVER,MOTOR,BLUETOOTH
+ SG_ Sensor_Tilt_X : 28|12@1+ (0.1,0) [0|0] "TiltValueX" DRIVER,MOTOR,BLUETOOTH
+ SG_ Sensor_Tilt_Y : 40|12@1+ (0.1,0) [0|0] "TiltValueY" DRIVER,MOTOR,BLUETOOTH
+ 
+BO_ 500 DRIVER_TEST: 1 DRIVER
+ SG_ Driver_Test_Msg : 0|8@1+ (1,0) [0|0] "" MOTOR,GEO,SENSOR,BLUETOOTH
+
+BO_ 600 MOTOR_TEST: 1 MOTOR
+ SG_ Motor_Test_Msg : 0|8@1+ (1,0) [0|0] "" DRIVER,GEO,SENSOR,BLUETOOTH
+ 
+BO_ 700 SENSOR_TEST: 1 SENSOR
+ SG_ Sensor_Test_Msg : 0|8@1+ (1,0) [0|0] "" DRIVER,MOTOR,GEO,BLUETOOTH
+ 
+BO_ 800 GEO_TEST: 1 GEO
+ SG_ Geo_Test_Msg : 0|8@1+ (1,0) [0|0] "" DRIVER,MOTOR,SENSOR,BLUETOOTH
+ 
+BO_ 900 BLUETOOTH_TEST: 1 BLUETOOTH
+ SG_ Bluetooth_Test_Msg : 0|8@1+ (1,0) [0|0] "" DRIVER,MOTOR,GEO,SENSOR
+ 
+CM_ BU_ DRIVER "The DRIVER controller driving the car";
+CM_ BU_ MOTOR "The motor controller of the car";
+CM_ BU_ SENSOR "The sensor controller of the car";
+CM_ BU_ GEO "The geo controller of the car";
+CM_ BU_ BLUETOOTH "The bridge controller of the car";
+CM_ BO_ 100 "Sync message used to synchronize the controllers";
+
+BA_DEF_ "BusType" STRING ;
+BA_DEF_ BO_ "GenMsgCycleTime" INT 0 0;
+BA_DEF_ SG_ "FieldType" STRING ;
+
+BA_DEF_DEF_ "BusType" "CAN";
+BA_DEF_DEF_ "FieldType" "";
+BA_DEF_DEF_ "GenMsgCycleTime" 0;
+
+BA_ "GenMsgCycleTime" BO_ 500 10;
